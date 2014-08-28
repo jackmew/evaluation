@@ -36,21 +36,37 @@ function allReady() {
   console.log("all ready!");
   //$("#testBtn").on("touchstart",onTestBtnTouch);
 
-  // $("#atest").click(function() {
-  //    alert("atest");
-  //    $(this).attr('data-icon','starYellow');
-  //    $(this).children().children().next().removeClass('ui-icon-star').addClass('ui-icon-starYellow');
-  // });
-  $("a[name='importantOrNot']").click(function() {
 
-    $(this).addClass("ui-icon-starYellow").removeClass("ui-icon-star");
-  });
-
-
-  /************ global variable ************/
+  /*************************** global variable ********************************/
+  /******* System Message *******/
   var toAddEventObject;
-  var isFirstSubmit = false;
 
+
+  var messageArr = [];
+
+  var message1 = new Message('1', '評鑑邀請','1125(W1)','2014/08/25' , '10:24',true,true);
+  var message2 = new Message('2', 'NC445改善','2498(W3)','2014/08/26' , '11:10',true,false);
+  var message3 = new Message('3', 'NC4改善','3398(W6)','2014/08/25' , '12:35',false,true);
+  var message4 = new Message('4', '評鑑邀請','1130(W2)','2014/08/25' , '13:35',true,false);
+  var message5 = new Message('5', 'NCffR改善','1248(W4)','2014/08/26' , '08:00',false,false);
+  var message6 = new Message('6', 'NCRxx改善','1258(W5)','2014/09/25' , '09:00',false,false);
+
+  /********************** define Message object ******************************/
+    function Message(mid ,title,description,date,time,read,important) {
+      this.mid = mid;
+      this.title = title ;
+      this.description = description ;
+      this.date = date ;
+      this.time = time ;
+      this.milli = moment(date+' '+time).valueOf();//date & time => transfer to long
+      this.read = read ;
+      this.important = important ;
+    }
+  /********************** End define Message object ******************************/
+  /******* Discussion *******/
+  var isFirstSubmit = false;
+  /*************************** End global variable *******************************/
+  pageEvent();
   home();
   contact();
   systemMessage();
@@ -58,11 +74,23 @@ function allReady() {
   download();
   
 
-  /******************************** page event *****************************************************/
+
+/******************************** page event **************************************/
+function pageEvent(){
   /* this is for reset page when change page */
-  $( document ).on( "pagecontainerbeforeshow" , function(e, data) {
+  $( document ).on( "pagecontainerbeforeshow" , function(e, ui) {
       resetPage();
   });
+  /* this is for detect what next page is  */
+  $( document ).on( "pagecontainerbeforehide" ,function(e, data) {
+      console.log("Next Page : "+data.nextPage[0].id);
+      if(data.nextPage[0].id === "systemMessage"){
+        //initSystemMessage();
+      }
+      
+  });
+}
+  
 
 
 function resetPage(){
@@ -134,63 +162,7 @@ function initYourCalendar() {
       defaultDate: '2014-08-12',
       editable: true,
       eventLimit: true
-      //, // allow "more" link when too many events
-      // events: [
-      //   {
-      //     title: 'All Day Event',
-      //     start: '2014-08-01'
-      //   },
-      //   {
-      //     title: 'Long Event',
-      //     start: '2014-08-07',
-      //     end: '2014-08-10'
-      //   },
-      //   {
-      //     id: 999,
-      //     title: 'Repeating Event',
-      //     start: '2014-08-09T16:00:00'
-      //   },
-      //   {
-      //     id: 999,
-      //     title: 'Repeating Event',
-      //     start: '2014-08-16T16:00:00'
-      //   },
-      //   {
-      //     title: 'Conference',
-      //     start: '2014-08-11',
-      //     end: '2014-08-13'
-      //   },
-      //   {
-      //     title: 'Meeting',
-      //     start: '2014-08-12T10:30:00',
-      //     end: '2014-08-12T12:30:00'
-      //   },
-      //   {
-      //     title: 'Lunch',
-      //     start: '2014-08-12T12:00:00'
-      //   },
-      //   {
-      //     title: 'Meeting',
-      //     start: '2014-08-12T14:30:00'
-      //   },
-      //   {
-      //     title: 'Happy Hour',
-      //     start: '2014-08-12T17:30:00'
-      //   },
-      //   {
-      //     title: 'Dinner',
-      //     start: '2014-08-12T20:00:00'
-      //   },
-      //   {
-      //     title: 'Birthday Party',
-      //     start: '2014-08-13T07:00:00'
-      //   },
-      //   {
-      //     title: 'Click for Google',
-      //     url: 'http://google.com/',
-      //     start: '2014-08-28'
-      //   }
-      // ]
+      
     });
 }
 function hideOrShowCalendar(){
@@ -250,22 +222,10 @@ function systemMessage() {
       }, 1000);
       
     }); 
-  
+}//End System Message
+
   function initSystemMessage() {
     //local variable in system message 
-    var messageArr = [];
-
-    /********************** define Message object ******************************/
-    function Message(title,description,date,time,read,important) {
-      this.title = title ;
-      this.description = description ;
-      this.date = date ;
-      this.time = time ;
-      this.milli = moment(date+' '+time).valueOf();//date & time => transfer to long
-      this.read = read ;
-      this.important = important ;
-    }
-    /********************** End define Message object ******************************/
     /********************** define Set ******************************/
     var Set = function(o) {this['name'] = o}
     //Set.prototype.setName = function(o) { this['name'] = o }
@@ -283,17 +243,19 @@ function systemMessage() {
 
     var setArr = [];
     //alert("init");
-    messageArr.push(new Message('評鑑邀請','1125(W1)','2014/08/25' , '10:24',true,true));
-    messageArr.push(new Message('NC445改善','2498(W3)','2014/08/26' , '11:10',true,false));
-    messageArr.push(new Message('NC4改善','3398(W6)','2014/08/25' , '12:35',false,true));
-    messageArr.push(new Message('評鑑邀請','1130(W2)','2014/08/25' , '13:35',true,false));
-    messageArr.push(new Message('NCffR改善','1248(W4)','2014/08/26' , '08:00',false,false));
-    messageArr.push(new Message('NCRxx改善','1258(W5)','2014/09/25' , '09:00',false,false));
+    messageArr.push(message1);
+    messageArr.push(message2);
+    messageArr.push(message3);
+    messageArr.push(message4);
+    messageArr.push(message5);
+    messageArr.push(message6);
 
     addArr();
     sortArr();
     addSet();
     iterateSetArr();
+    bindStartYellowClick();
+    bindMessageInListviewClick();
 
     /*************** push data into 1.readArr 2.unreadArr 3. importantArr ***************/
     function addArr() {
@@ -407,25 +369,72 @@ function systemMessage() {
               //console.log(value);
               $("#"+type+" ul[data-role='listview']").append(
                 '<li>'+
-                  '<a href="index.html">'+
+                  '<a name="messageInListview" href="index.html">'+
+                    '<span style="display:none;">'+value.mid+'</span>'+
                     '<h2>'+value.title+'</h2>'+
                     '<p><strong>'+value.description+'</strong></p>'+
                     '<p class="ui-li-aside"><strong>'+value.time+'</strong></p>'+
                   '</a>'+
-                  '<a href=""></a>'+
+                  '<a name="importantOrNot" href=""></a>'+
                 '</li>');
             }
         });
+
+        
     }//End setListView
+    
     // Compare dates to sort
     function compareMilli(a,b) {
         if(a.milli < b.milli) return -1; //若 a 小於 b，在排序後的數組中 a 應該出現在 b 之前，則返回一個小於 0 的值。
         if(a.milli > b.milli) return 1;  //若 a 大於 b，在排序後的數組中 a 應該出現在 b 之前，則返回一個小於 0 的值。
         return 0; // 若 a 等於 b，則返回 0。
     }//End comareMilli
-}//End initSystemMessage
+  }//End initSystemMessage
+  function bindStartYellowClick() {
+    $("a[name='importantOrNot']").click(function() {
 
-  function addInviteCalendarEvent(evaluationName){
+      var mid = $(this).parent().children().children("span").text();
+      //console.log(mid);
+      var message = getMessageById(mid);
+
+      var anchorOwnClass = $(this).attr("class");
+      if(anchorOwnClass.indexOf("ui-icon-star") > -1) {
+         $(this).addClass("ui-icon-starYellow").removeClass("ui-icon-star");
+
+         
+         message.important = true;
+
+      }
+      if(anchorOwnClass.indexOf("ui-icon-starYellow") > -1) {
+         $(this).addClass("ui-icon-star").removeClass("ui-icon-starYellow");
+
+         message.important = false;
+      }
+      
+    });
+  }
+  function bindMessageInListviewClick() {
+    $("a[name='messageInListview']").click(function() {
+      var mid = $(this).children("span").text();
+      // get message object
+      var message = getMessageById(mid);
+      // set to read 已讀
+      message.read = true;
+    });
+  }
+  function getMessageById(mid){
+    var message ;
+
+    $.each(messageArr,function(index,value){
+        if(value.mid === mid){
+          message = value;
+          return false;
+        }
+    });
+    return message ;
+  }
+
+    function addInviteCalendarEvent(evaluationName){
 
       var eventWrapper ;
 
@@ -509,7 +518,7 @@ function systemMessage() {
           $('#inviteCalendar').fullCalendar('rerenderEvents');
         }
     }
-}//End System Message
+
 
 function discussion() {
     //var discussArr = [];
@@ -586,7 +595,7 @@ function discussion() {
       setTimeout(function(){$("#talkBox").append('<p>楊二 : 不理你 掰</p>')
       }, 12000);
     }
-}
+}//End discussion
 function download(){    
 
     $("#fileListPanel a").on("click" , downloadPanelClick);

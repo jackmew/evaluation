@@ -447,7 +447,7 @@ fullcalendar的end 是算到00:00 就算是12號 所以線圖只會顯示到11�
 
 最後把unsorted_times output出來就完成了
 
-#接下來需要寫個小型演算法
+#接下來需要寫個小型演算法 => not solve
 
 需要嗎?
 
@@ -472,37 +472,144 @@ fullcalendar的end 是算到00:00 就算是12號 所以線圖只會顯示到11�
 
 7. 照著時間順序 顯示在important上
 
+改變想法 : 
 
+1. 三組 : unread , read , important => unread , read 是一有一無 的關係 , important 只判斷有沒有important:true
 
+2. unread , read 分組 : 用read:true 分成兩個array
 
+3. important : important: true 分成一個array
 
+4. 這三個array 都經過同一個function 來做date排序
 
 #  在app上跟在server上一樣都可以發出ajax
 
 [link](http://stackoverflow.com/questions/16648753/sending-and-receiving-json-data-phonegap-jquery-mobile-app-using-ajax)
 
+[找出某個folder內的所有檔案名稱](http://stackoverflow.com/questions/6994212/is-there-a-way-to-return-a-list-of-all-the-image-file-names-from-a-folder-using)
+
+
+![image](https://dl.dropboxusercontent.com/u/47510080/markdown/phonegap/evaluation/31.png)
+
+![image](https://dl.dropboxusercontent.com/u/47510080/markdown/phonegap/evaluation/32.png)
+
+
+# create popup dynamically
+
+很奇怪...
+
+直接用html, 可以做出正常的popup photo lighbox
+
+![image](https://dl.dropboxusercontent.com/u/47510080/markdown/phonegap/evaluation/2/1.png)
+
+![image](https://dl.dropboxusercontent.com/u/47510080/markdown/phonegap/evaluation/2/2.png)
+
+
+但是用js動態產生的方式 卻會把popup直接顯示出來...
+
+![image](https://dl.dropboxusercontent.com/u/47510080/markdown/phonegap/evaluation/2/3.png)
+
+![image](https://dl.dropboxusercontent.com/u/47510080/markdown/phonegap/evaluation/2/4.png)
+
+而且在jquery mobile官方 有提供[Dynamically creating a popup 1.4](http://demos.jquerymobile.com/1.4.0/popup-dynamic/)
+
+[Dynamically creating a popup 1.3](http://demos.jquerymobile.com/1.3.0-beta.1/docs/demos/popups/dynamic-popup.html#demo-page)
+
+[basic dynamic way to create popup](http://jsfiddle.net/Gajotres/Ar8N3/)
+
+而且很多文章在講 要怎麼要[best way create popup](http://stackoverflow.com/questions/16015810/jquery-mobile-best-way-to-create-pop-up-and-content-dynamically) , 也就是說動態產生popup可能比較特殊....
 
 
 
 
+# 2014/08/26
+
+[buttonMarkup](http://api.jquerymobile.com/buttonMarkup/)
+
+buttonMarkup的一些對應:
+
+![image](https://dl.dropboxusercontent.com/u/47510080/markdown/phonegap/evaluation/2/5.png)
+
+![image](https://dl.dropboxusercontent.com/u/47510080/markdown/phonegap/evaluation/2/6.png)
+
+
+接下來 thumbnail地方 一樣用append產生
+
+![image](https://dl.dropboxusercontent.com/u/47510080/markdown/phonegap/evaluation/2/7.png)
+
+popup的部分 用動態產生
+
+![image](https://dl.dropboxusercontent.com/u/47510080/markdown/phonegap/evaluation/2/8.png)
+
+[attr](http://stackoverflow.com/questions/540349/change-the-image-source-using-jquery)
+
+發現到用buttonMarkup()時
+
+1. 直接套用data-xxx => buttonMarkup({ xxx : })
+
+2. 套用某class => addClass()
+
+3. 給屬性 => attr()
+
+# thumbnail大小 => not solve
+
+我讓圖片thumbnail 限定大小
+
+`style="width:30%;height:100px"`
+
+![image](https://dl.dropboxusercontent.com/u/47510080/markdown/phonegap/evaluation/2/10.png)
+
+但是可能需要動態變大變小...
+
+![image](https://dl.dropboxusercontent.com/u/47510080/markdown/phonegap/evaluation/2/11.png)
 
 
 
 
+[A Big Image](http://plugins.jquery.com/abigimage/)
+
+
+# pdf.js
+
+
+![image](https://dl.dropboxusercontent.com/u/47510080/markdown/phonegap/evaluation/2/12.png)
+
+
+所以page.pageinfo.view裡面存的就是height,width
+
+[動態決定viewport的scale](http://jsfiddle.net/RREv9/) => 先決定好canvas大小 然後根據圖片大小 決定scale倍數
+
+
+所以`canvas.width / page.getViewport(1.0).width(圖片寬) = scale1倍數`
+
+![image](https://dl.dropboxusercontent.com/u/47510080/markdown/phonegap/evaluation/2/13.png)
+
+![image](https://dl.dropboxusercontent.com/u/47510080/markdown/phonegap/evaluation/2/14.png)
+
+
+[link](http://stackoverflow.com/questions/20598292/getting-textcontent-pdf-js) 所以說pdf.js將pdf內容變成html格式呈現 ,所以我們可以用css去decorate
+
+
+[how-to-change-page-in-latest-jquery-mobile-1-4-beta](http://stackoverflow.com/questions/19174611/how-to-change-page-in-latest-jquery-mobile-1-4-beta)
+
+	$(":mobile-pagecontainer").pagecontainer("change", "#viewPdf", { 
+	    transition: 'flow'
+	});
+
+完成了
+
+![image](https://dl.dropboxusercontent.com/u/47510080/markdown/phonegap/evaluation/2/15.png)
+
+![image](https://dl.dropboxusercontent.com/u/47510080/markdown/phonegap/evaluation/2/16.png)
+
+
+# pdf 縮放 not solve
 
 
 
+# 用git 記錄比較好 , 反正只是prototype 應該沒關係
 
-
-
-
-
-
-
-
-
-
-
+[git evaluation](https://github.com/jackmew/evaluation)
 
 
 

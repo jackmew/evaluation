@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+        <meta name="msapplication-tap-highlight" content="no" />
+
+        
+        <link rel="stylesheet" type="text/css" href="css/jquery_mobile-1_4_2_min.css" />
+
+        <link rel="stylesheet" href="css/jquery-ui.min.css">
+        <link href='css/fullcalendar.css' rel='stylesheet' />
+        <link href='css/fullcalendar.print.css' rel='stylesheet' media='print' />
+        
+        
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <!-- weinre
+        <script src="http://192.168.26.109:8081/target/target-script-min.js#anonymous"></script>
+        -->
+        <!-- jquery -->
+        <script src="lib/jquery-1_11_1_min.js" type="text/javascript"></script>
+
+        <!-- jquery ui for full calendar  -->
+        <script src="lib/jquery-ui.min.js"></script>
+        <!-- moment.js for full calendar  -->
+        <script src='lib/moment.min.js'></script>
+        <!-- full calendar -->
+        <script src='lib/fullcalendar.min.js'></script>
+        <!-- pdf.js for read pdf -->
+        <script src="lib/pdf/pdf.js"></script>
+        <script>PDFJS.workerSrc = 'lib/pdf/worker_loader.js';</script>
+
+        <script type="text/javascript" src="cordova.js"></script>
+  
+        <script src="lib/jquery_mobile-1_4_2_min.js" type="text/javascript"></script>
+
+        <title>LeanDev Evaluation System</title>
+    </head>
+    <body>
+
+<!-- ******************************* page1 *************************************** -->
+        <div data-role="page" id="page1" >
+            <!--** header ** -->
+            <div data-role="header" data-position="fixed" >
+                <a href="#page2">page2</a>
+                <h1>page1</h1>
+                <a href="#" data-rel="back">back</a>
+            </div>
+        
+            <div data-role="content">
+         
+            </div>
+            <!-- ** footer ** -->
+            <div data-role="footer" data-position="fixed" >
+              
+            </div>
+        </div>
+<!-- ******************************* page2 *************************************** -->
+        <div data-role="page" id="page2" >
+            <!--** header ** -->
+            <div data-role="header" data-position="fixed" >
+                <a href="#page1">page1</a>
+                <h1>page2</h1>
+                <a href="#" data-rel="back">back</a>
+            </div>
+        
+            <div data-role="content">
+         
+            </div>
+            <!-- ** footer ** -->
+            <div data-role="footer" data-position="fixed" >
+              
+            </div>
+        </div>
+
+    <script>
+         /******************** try class **********************/
+        var app = {
+            param1 : 1,
+            param2 : 2,
+            init : function(){
+               this.param1 = 11;
+               this.param2 = 22;
+               this.bindEvent();
+            },
+            bindEvent: function(){
+               $(app).on("bumpApp",function(){
+                   alert("bumpApp");
+               });
+            },
+            removeEvent: function(){
+                $(app).off();
+            }
+        };
+        app.init();
+         alert(app.param1);
+        $(app).trigger("bumpApp");
+
+        app.removeEvent();
+        app.init();
+        $(app).trigger("bumpApp");
+
+         // /******************** constructor function **********************/
+         // function o1(name){
+         //        this.iAm = name;
+         //        this.whatAmI = function(language) {
+         //            console.log('I am '+ this.iAm+' written by '+language);
+         //        };
+         // };
+         // ******************* object literal *********************
+         // var o2 = {
+         //    iAm : 'o2',
+         //    whatAmI : function() {
+         //        console.log('I am '+this.iAm);
+         //    }
+         // };
+         // var oo1 = new o1('o1');
+         // oo1.whatAmI('Javascript');
+         // o2.whatAmI();
+
+
+
+    </script>
+
+    </body>
+</html>
