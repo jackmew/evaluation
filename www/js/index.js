@@ -1,155 +1,150 @@
-var deviceReadyDeferred = $.Deferred();
-var jqmReadyDeferred = $.Deferred();
-
-//document.addEventListener("deviceReady", deviceReady, false);
-
-$(document).ready(function(){
-    console.log( "DOM ready!" );
-    //監聽 deferred()物件的狀態
-    //$.when(deviceReadyDeferred, jqmReadyDeferred).then(allReady);
-    //當deferred物件的狀態都改為成功時(解決) 就執行allReady
-    //jquery / jqueyr moblie / device ready
-
-
-    // 暫時改成只要jquery/jquery mobile 就好
-    allReady();
-});
-// $(document).one("mobileinit", mobileReady );
-//
-// function deviceReady() {
+function documentReadyEvent(deviceReadyDeferred,jqmReadyDeferred) {
+    $(document).ready(function(){
+        console.log( "DOM ready!" );
+        //$.when(deviceReadyDeferred, jqmReadyDeferred).then(app.allReady);
+        app.allReady();
+    });
+}
+// function deviceReadyEvent(deviceReadyDeferred) {
+//     document.addEventListener("deviceReady", function(){
 //         console.log("device ready!");
 //         deviceReadyDeferred.resolve();
+//     }, false);
 // }
-// function mobileReady() {
-//     console.log("mobile ready!");
-//     //jquery mobile configuration
-//     $.extend( $.mobile , {
-//         defaultPageTransition: "flip"
-//     });
-//
-//     jqmReadyDeferred.resolve();
-// }
+function jqueryMobileReadyEvent(jqmReadyDeferred) {
+    $(document).one("mobileinit", function(){
+        console.log("mobile ready!");
+        //jquery mobile configuration
+        $.extend( $.mobile , {
+            defaultPageTransition: "flip"
+        });
 
-//real entry point
-function allReady() {
-  // TBD
-  console.log("all ready!");
-  //$("#testBtn").on("touchstart",onTestBtnTouch);
+        jqmReadyDeferred.resolve();
+    });
+}
+var app = {
+    deviceReadyDeferred : $.Deferred(),
+    jqmReadyDeferred : $.Deferred(),
+    init : function() {
+        this.addEvent();
+    },
+    addEvent : function() {
+        documentReadyEvent(this.deviceReadyDeferred,this.jqmReadyDeferred);
+        //deviceReadyEvent(this.deviceReadyDeferred);
+        jqueryMobileReadyEvent(this.jqmReadyDeferred);
+    }
+    ,
+    allReady : function() {
+        console.log("all ready");
 
+        setGlobalVariable();
+    
+        pageManager.init();
+       
+        homePage.init();
 
+        contactPage.init();
+
+        systemMessagePage.init();
+
+        discussionPage.init();
+
+        downloadPage.init();
+    }
+
+};
+/********************** define Message object ******************************/
+function Message(mid ,title,description,date,time,read,important) {
+  this.mid = mid;
+  this.title = title ;
+  this.description = description ;
+  this.date = date ;
+  this.time = time ;
+  this.milli = moment(date+' '+time).valueOf();//date & time => transfer to long
+  this.read = read ;
+  this.important = important ;
+}
+/********************** define Set ****************************/
+var Set = function(o) {this['name'] = o}
+//Set.prototype.setName = function(o) { this['name'] = o }
+Set.prototype.add = function(o) { this[o] = true; }
+Set.prototype.remove = function(o) { delete this[o]; }
+/********************** End define Set ************************/
+/********************** End define Message object ******************************/
+
+function setGlobalVariable() {
   /*************************** global variable ********************************/
   /******* System Message *******/
-  var toAddEventObject;
+  toAddEventObject = {};
 
 
-  var messageArr = [];
+  messageArr = [];
 
-  var message1 = new Message('1', '評鑑邀請','1125(W1)','2014/08/25' , '10:24',true,true);
-  var message2 = new Message('2', 'NC445改善','2498(W3)','2014/08/26' , '11:10',true,false);
-  var message3 = new Message('3', 'NC4改善','3398(W6)','2014/08/25' , '12:35',false,true);
-  var message4 = new Message('4', '評鑑邀請','1130(W2)','2014/08/25' , '13:35',true,false);
-  var message5 = new Message('5', 'NCffR改善','1248(W4)','2014/08/26' , '08:00',false,false);
-  var message6 = new Message('6', 'NCRxx改善','1258(W5)','2014/09/25' , '09:00',false,false);
+  message1 = new Message('1', '評鑑邀請','1125(W1)','2014/08/25' , '10:24',true,true);
+  message2 = new Message('2', 'NC445改善','2498(W3)','2014/08/26' , '11:10',true,false);
+  message3 = new Message('3', 'NC4改善','3398(W6)','2014/08/25' , '12:35',false,true);
+  message4 = new Message('4', '評鑑邀請','1130(W2)','2014/08/25' , '13:35',true,false);
+  message5 = new Message('5', 'NCffR改善','1248(W4)','2014/08/26' , '08:00',false,false);
+  message6 = new Message('6', 'NCRxx改善','1258(W5)','2014/09/25' , '09:00',false,false);
 
-  /********************** define Message object ******************************/
-    function Message(mid ,title,description,date,time,read,important) {
-      this.mid = mid;
-      this.title = title ;
-      this.description = description ;
-      this.date = date ;
-      this.time = time ;
-      this.milli = moment(date+' '+time).valueOf();//date & time => transfer to long
-      this.read = read ;
-      this.important = important ;
-    }
-  /********************** End define Message object ******************************/
   /******* Discussion *******/
-  var isFirstSubmit = false;
-  /*************************** End global variable *******************************/
-  pageEvent();
-  home();
-  contact();
-  systemMessage();
-  discussion();
-  download();
-  
-
-
-/******************************** page event **************************************/
-function pageEvent(){
-  /* this is for reset page when change page */
-  $( document ).on( "pagecontainerbeforeshow" , function(e, ui) {
-      resetPage();
-  });
-  /* this is for detect what next page is  */
-  $( document ).on( "pagecontainerbeforehide" ,function(e, data) {
-      console.log("Next Page : "+data.nextPage[0].id);
-      if(data.nextPage[0].id === "systemMessage"){
-        //initSystemMessage();
-      }
-      
-  });
-}
-  
-
-
-function resetPage(){
-  /* home */
-  $('#calendar').hide();
-  $( "#btnJoin" ).removeClass('ui-disabled');
-  /* system message */
-  $("#talkBox p").remove();
   isFirstSubmit = false;
-  /* download */
-  $("#showDownloadImage div").remove();
-  $("#showDownloadPdf div").remove();
-
 }
 
-function home() {
-  initYourCalendar();
+var pageManager = {
+    init : function () {
+        this.addEvent();
+    },
+    addEvent : function () {
+        var pagemanager = this ;
+        $( document ).on( "pagecontainerbeforeshow" , function(e, ui) {
+            pagemanager.resetPage();
+        });
+        /* this is for detect what next page is  */
+        $( document ).on( "pagecontainerbeforehide" ,function(e, data) {
+            console.log("Next Page : "+data.nextPage[0].id);
+            if(data.nextPage[0].id === "systemMessage"){
+               systemMessagePage.destroy();
+               systemMessagePage.init();
+               $("#unread ul[data-role='listview']").listview("refresh");
+               $("#read ul[data-role='listview']").listview("refresh");
+               $("#important ul[data-role='listview']").listview("refresh");
 
-  $("#btnCalendar").on("click", hideOrShowCalendar);
-
-  $("#addEvent").on("click",addEvent);
-
-  $("#removeEvent").on("click",removeEvent);
-
-  $("#getAllEvents").on("click",getAllEvents);
+            }
+            
+        });
+    },
+    resetPage : function () {
+        /* home */
+        $('#calendar').hide();
+        $( "#btnJoin" ).removeClass('ui-disabled');
+        /* system message */
+        $("#talkBox p").remove();
+        isFirstSubmit = false;
+        /* download */
+        $("#showDownloadImage div").remove();
+        $("#showDownloadPdf div").remove();
+    }
 }
-function addEvent(){
-  console.log("addEvent");
 
-  
-  var eventDate = {
-    title: 'jackho',
-    id: 1,
-    start: new Date(2014,7,2), //月份 +1 才是現在月份
-    end: new Date(2014,7,4),
-    color: "pink"
-    // ,
-    // textColor: "black",
-    // backgroundColor: "green",
-    // borderColor: "purple"
-  }
- 
 
-  $('#calendar').fullCalendar('renderEvent', eventDate, true); // stick? = true
-  
-}
-function removeEvent() {
-  console.log("removeEvent");
 
-  $("#calendar").fullCalendar('removeEvents',1);
-}
-function getAllEvents() {
-  var allEventsArr  = $('#calendar').fullCalendar('clientEvents');
-  console.log(allEventsArr);
-  $.each( allEventsArr, function( index, value ) {
-    console.log( index + ": " + value.id);
-  });
 
-}
+var homePage = {
+    init : function () {
+      initYourCalendar();
+      this.addEvent();
+    },
+    addEvent: function () {
+      $("#btnCalendar").on("click", hideOrShowCalendar);
+
+      $("#addCalendarEvent").on("click",addCalendarEvent);
+
+      $("#removeCalendarEvent").on("click",removeCalendarEvent);
+
+      $("#getAllCalendarEvents").on("click",getAllCalendarEvents);
+    } 
+};
 function initYourCalendar() {
   $('#calendar').fullCalendar({
       theme: true,
@@ -165,6 +160,35 @@ function initYourCalendar() {
       
     });
 }
+function addCalendarEvent(){
+  console.log("addCalendarEvent");
+  var eventDate = {
+    title: 'jackho',
+    id: 1,
+    start: new Date(2014,7,2), //月份 +1 才是現在月份
+    end: new Date(2014,7,4),
+    color: "pink"
+    // ,
+    // textColor: "black",
+    // backgroundColor: "green",
+    // borderColor: "purple"
+  }
+  $('#calendar').fullCalendar('renderEvent', eventDate, true); // stick? = true
+  
+}//End addCalendarEvent
+function removeCalendarEvent() {
+  console.log("removeCalendarEvent");
+
+  $("#calendar").fullCalendar('removeEvents',1);
+}//End removeCalendarEvent
+function getAllCalendarEvents() {
+  var allEventsArr  = $('#calendar').fullCalendar('clientEvents');
+  console.log(allEventsArr);
+  $.each( allEventsArr, function( index, value ) {
+    console.log( index + ": " + value.id);
+  });
+
+}//End getAllCalendarEvents
 function hideOrShowCalendar(){
    var isCalendarVisible = $("#calendar").is(":visible");
     if (isCalendarVisible) {
@@ -177,54 +201,46 @@ function hideOrShowCalendar(){
       /* render calender events */
       $('#calendar').fullCalendar('rerenderEvents');
     }
-}
+}//End hideOrShowCalendar
 
-function contact() {
+var contactPage = {
 
-    $("#contact a[href='#contactDetail']").click(function() {
-        var name = $(this).text();
-        $("#contactDetail h2").text(name);
-    });
-}
+    init : function () {
+        this.addEvent();
+    },
+    addEvent : function (){
+        this.contactDetailClick();
+    },
+    contactDetailClick : function () {
+        $("#contact a[href='#contactDetail']").click(function() {
+            var name = $(this).text();
+            $("#contactDetail h2").text(name);
+        });
+    }
+};
 
-function systemMessage() {
 
-    var evaluationName;
+var systemMessagePage = {
+    init : function() {
+      initSystemMessage();
+      this.addEvent();
+    },
+    addEvent : function() {
+      bindStartYellowClick();
+      bindMessageInListviewClick();
 
-    initSystemMessage();
+      systemMessageToCalendar();
+      renderCalendarClick();
+      sureJoinClick();
+    },
+    destroy :function() {
+      $("#tab-systemMessage ul[data-role='listview'] li").remove();
+      messageArr = [];
+    }
 
-    
+};
 
-    $("#systemMessage ul[data-role='listview'] a").click(function() {      
-        /*根據按下去的livstview 不同 改變calendar*/
-        evaluationName = $(this).children("p").children("strong").text();
-        addInviteCalendarEvent(evaluationName);
-    });
-
-    $("#renderCalendar").on("click",hideOrShowInviteCalendar);
-    
-    // $("#btnJoin").click(function() {
-    //   alert("d");
-    // });
-    $("#sureJoin").click(function() {
-      setTimeout(function(){
-        /* 將這個事件 加入行事曆中*/
-        $('#calendar').fullCalendar('renderEvent', toAddEventObject, true); // stick? = true
-        
-        /* refresh inviteCalendar*/
-        //$('#calendar').fullCalendar('render');
-        /* 顯示 已加入行事曆 訊息 */
-        $("#popupBasic-joined").popup( "open" );
-        /* 參加 button disable */
-        $( "#btnJoin" ).addClass('ui-disabled');
-        
-
-      }, 1000);
-      
-    }); 
-}//End System Message
-
-  function initSystemMessage() {
+function initSystemMessage() {
     //local variable in system message 
     /********************** define Set ******************************/
     var Set = function(o) {this['name'] = o}
@@ -243,6 +259,7 @@ function systemMessage() {
 
     var setArr = [];
     //alert("init");
+    console.log(message6);
     messageArr.push(message1);
     messageArr.push(message2);
     messageArr.push(message3);
@@ -254,8 +271,8 @@ function systemMessage() {
     sortArr();
     addSet();
     iterateSetArr();
-    bindStartYellowClick();
-    bindMessageInListviewClick();
+    //bindStartYellowClick();
+    //bindMessageInListviewClick();
 
     /*************** push data into 1.readArr 2.unreadArr 3. importantArr ***************/
     function addArr() {
@@ -369,16 +386,18 @@ function systemMessage() {
               //console.log(value);
               $("#"+type+" ul[data-role='listview']").append(
                 '<li>'+
-                  '<a name="messageInListview" href="index.html">'+
+                  '<a name="messageInListview" href="#invite">'+
                     '<span style="display:none;">'+value.mid+'</span>'+
                     '<h2>'+value.title+'</h2>'+
                     '<p><strong>'+value.description+'</strong></p>'+
-                    '<p class="ui-li-aside"><strong>'+value.time+'</strong></p>'+
+                    '<p class="ui-li-aside">'+value.time+'</p>'+
                   '</a>'+
                   '<a name="importantOrNot" href=""></a>'+
                 '</li>');
+
             }
         });
+
 
         
     }//End setListView
@@ -389,31 +408,41 @@ function systemMessage() {
         if(a.milli > b.milli) return 1;  //若 a 大於 b，在排序後的數組中 a 應該出現在 b 之前，則返回一個小於 0 的值。
         return 0; // 若 a 等於 b，則返回 0。
     }//End comareMilli
-  }//End initSystemMessage
-  function bindStartYellowClick() {
+}//End initSystemMessage
+function bindStartYellowClick() {
+  console.log(message6);
     $("a[name='importantOrNot']").click(function() {
 
       var mid = $(this).parent().children().children("span").text();
       //console.log(mid);
-      var message = getMessageById(mid);
-
+      //alert(mid);
+      // var oneMessageArr = getMessageById(mid);
+      // console.log(oneMessageArr);
+      // var messageArrIndex = oneMessageArr[0];
+      // var message = oneMessageArr[1];
+      console.log(message6);
       var anchorOwnClass = $(this).attr("class");
+      console.log(message6);
       if(anchorOwnClass.indexOf("ui-icon-star") > -1) {
+        console.log(message6);
          $(this).addClass("ui-icon-starYellow").removeClass("ui-icon-star");
 
-         
-         message.important = true;
+         changeMessageImportant(mid,true);
+         //message.important = true;
+         // messageArr[messageArrIndex] = message;
+         // console.log(messageArr);
+         //console.log(message);
 
       }
       if(anchorOwnClass.indexOf("ui-icon-starYellow") > -1) {
          $(this).addClass("ui-icon-star").removeClass("ui-icon-starYellow");
-
-         message.important = false;
+         changeMessageImportant(mid,false);
+         //message.important = false;
       }
       
     });
-  }
-  function bindMessageInListviewClick() {
+}//EndbindStartYellowClick
+function bindMessageInListviewClick() {
     $("a[name='messageInListview']").click(function() {
       var mid = $(this).children("span").text();
       // get message object
@@ -421,109 +450,179 @@ function systemMessage() {
       // set to read 已讀
       message.read = true;
     });
-  }
-  function getMessageById(mid){
-    var message ;
+}//End bindMessageInListviewClick
+function changeMessageImportant(mid,TorF) {
+    switch(mid){
+      case "1" : 
+        message1.important = TorF;
+        break;
+      case "2" : 
+        message2.important = TorF;
+        break;
+      case "3" : 
+        message3.important = TorF;
+        break;
+      case "4" : 
+        message4.important = TorF;
+        break;
+      case "5" : 
+        message5.important = TorF;
+        break;
+      case "6" : 
+        console.log(message6);
+        message6.important = TorF;
+        console.log(message6);
+        break;
+    }
+
+}
+function getMessageById(mid){
+    var oneMessageArr = [];
+    //var message ;
 
     $.each(messageArr,function(index,value){
         if(value.mid === mid){
-          message = value;
+          //message = value;
+          oneMessageArr.push(index);
+          oneMessageArr.push(value);
           return false;
         }
     });
-    return message ;
-  }
-
-    function addInviteCalendarEvent(evaluationName){
-
-      var eventWrapper ;
-
-      switch(evaluationName) {
-        case "1125(W1)" :
-            eventWrapper = {
-              id: 1125,
-              title: evaluationName,
-              start: "2014-09-01",
-              end: "2014-09-12",
-              color: "blue"
-            };
-            addInviteCalendarEventToCalendar(eventWrapper);
-            break;
-        case "1130(W2)" :
-            eventWrapper = {
-              id: 1130,
-              title: evaluationName,
-              start: "2014-09-14",
-              end: "2014-09-21",
-              color: "green"
-            };
-            addInviteCalendarEventToCalendar(eventWrapper);
-            break;
-        default:     
-            console.log("do nothing");
-      }//End switch 
-    
-    }
-    function addInviteCalendarEventToCalendar(eventWrapper){
-      initInviteCalendar(eventWrapper);
-
-      //在addInviteCalendarEvent之前 先確認有沒有已經加入過此event了
-      if(isEventDuplicate(eventWrapper.id)){
-
-        setTimeout(function(){
-          //因為在轉到下一頁時 會被reset , 所以等reset結束 再disable
-          $( "#btnJoin" ).addClass('ui-disabled');
-          }, 100);
+    return oneMessageArr ;
+}//End getMessageById
+function systemMessageToCalendar(){
+  $("#systemMessage ul[data-role='listview'] a").click(function() {      
+        /*根據按下去的livstview 不同 改變calendar*/
+        var evaluationName = $(this).children("p").children("strong").text();
+        //alert(evaluationName);
+        addInviteCalendarEvent(evaluationName);
+  });
+}//End systemMessageToCalendar
+function renderCalendarClick(){
+  $("#renderCalendar").on("click",hideOrShowInviteCalendar);
+}
+function sureJoinClick() {
+  $("#sureJoin").click(function() {
+      setTimeout(function(){
+        /* 將這個事件 加入行事曆中*/
+        $('#calendar').fullCalendar('renderEvent', toAddEventObject, true); // stick? = true
         
-      }
-      /*改變invite message*/
-      $("#inviteMessage p").text("邀請XXX委員參與"+eventWrapper.title+"溫室氣體認證,評鑑期間"+eventWrapper.start+"~"+eventWrapper.end+",請回覆可否參加:");
-    }
+        /* refresh inviteCalendar*/
+        //$('#calendar').fullCalendar('render');
+        /* 顯示 已加入行事曆 訊息 */
+        $("#popupBasic-joined").popup( "open" );
+        /* 參加 button disable */
+        $( "#btnJoin" ).addClass('ui-disabled');
+        
 
+      }, 1000);
+      
+    }); 
+}
+function addInviteCalendarEvent(evaluationName) {
 
-    function initInviteCalendar(eventWrapper){
-      toAddEventObject = eventWrapper
-      /* 先detroy  */
-      $("#inviteCalendar").hide();
-      $('#inviteCalendar').fullCalendar('destroy');
-      /* 再 init */
-      $('#inviteCalendar').fullCalendar({
-          theme: true,
-          header: {
-            left: '',
-            center: 'title',
-            right: ''
-          },
-          eventColor: toAddEventObject.color,
-          defaultDate: toAddEventObject.start,
-
-          events: [
-            {
-              id: toAddEventObject.id,
-              title: toAddEventObject.title,
-              start: toAddEventObject.start,
-              end: toAddEventObject.end
-            }
-          ]
-        });
-    }
-    function hideOrShowInviteCalendar(){
-       var isCalendarVisible = $("#inviteCalendar").is(":visible");
-       
-        if (isCalendarVisible) {
-          $('#inviteCalendar').hide();
-        }else {
-          $('#inviteCalendar').show();
-          $('#inviteCalendar').fullCalendar('render');
-          $('#inviteCalendar').fullCalendar('rerenderEvents');
-        }
-    }
-
-
-function discussion() {
-    //var discussArr = [];
+  var eventWrapper;
+  switch(evaluationName) {
+    case "1125(W1)" :
+        eventWrapper = {
+          id: 1125,
+          title: evaluationName, 
+          start: "2014-09-01",
+          end: "2014-09-12",
+          color: "blue"
+        };
+        addInviteCalendarEventToCalendar(eventWrapper);
+        break;
+    case "1130(W2)" :
+        eventWrapper = {
+          id: 1130,
+          title: evaluationName, 
+          start: "2014-09-14",
+          end: "2014-09-21",
+          color: "green"
+        };
+        addInviteCalendarEventToCalendar(eventWrapper);
+        break;
+    default:     
+        console.log("do nothing");
+  }//End switch 
+}//End addInviteCalendarEvenvar
+function addInviteCalendarEventToCalendar(eventWrapper){
+  initInviteCalendar(eventWrapper);
+  //在addInviteCalendarEvent之前 先確認有沒有已經加入過此event了
+  if(isEventDuplicate(eventWrapper.id)){
+    setTimeout(function(){
+      //因為在轉到下一頁時 會被reset , 所以等reset結束 再disable
+      $( "#btnJoin" ).addClass('ui-disabled');
+      }, 100);
     
-    /********************* choose group to talk ********************/
+  }
+  /*改變invite message*/
+  $("#inviteMessage p").text("邀請XXX委員參與"+eventWrapper.title+"溫室氣體認證,評鑑期間"+eventWrapper.start+"~"+eventWrapper.end+",請回覆可否參加:");
+}//End addInviteCalendarEventToCalendar
+function initInviteCalendar(eventWrapper){
+  toAddEventObject = eventWrapper
+  /* 先detroy  */
+  $("#inviteCalendar").hide();
+  $('#inviteCalendar').fullCalendar('destroy');
+  /* 再 init */
+  $('#inviteCalendar').fullCalendar({
+      theme: true,
+      header: {
+        left: '',
+        center: 'title',
+        right: ''
+      },
+      eventColor: toAddEventObject.color,
+      defaultDate: toAddEventObject.start,
+      events: [
+        {
+          id: toAddEventObject.id,
+          title: toAddEventObject.title,
+          start: toAddEventObject.start,
+          end: toAddEventObject.end
+        }
+      ]
+    });
+}//End initInviteCalendar
+function hideOrShowInviteCalendar(){
+  var isCalendarVisible = $("#inviteCalendar").is(":visible");
+   
+  if (isCalendarVisible) {
+    $('#inviteCalendar').hide();
+  }else {
+    $('#inviteCalendar').show();
+    $('#inviteCalendar').fullCalendar('render');
+    $('#inviteCalendar').fullCalendar('rerenderEvents');
+  }
+}//End hideOrShowInviteCalendar
+/*看有沒有重複的eventObject*/
+function isEventDuplicate(newEventId) {
+
+  var isEventDuplicateBool = false;
+  /* 抓出所有在calendar中的eventObject */
+  var allEventsArr  = $('#calendar').fullCalendar('clientEvents');
+  /* 用id比對有沒有重複的eventObject */
+  $.each( allEventsArr, function( index, value ) {
+  
+      if( value.id == newEventId){
+        isEventDuplicateBool = true;
+        // stop $.each
+        return false; 
+      }
+  });
+  return isEventDuplicateBool;
+}
+
+var discussionPage = {
+    init : function () {
+        this.addEvent();
+    },
+    addEvent : function(){
+        chooseGroupToTalkClick();
+    }
+};
+function chooseGroupToTalkClick() {
     $("#group a").click(function() {
 
         $("#pleaseChooseP").remove();
@@ -578,60 +677,62 @@ function discussion() {
 
 
     });
-    /********************* End choose group to talk ********************/
-    
-    
-    function fakeMessage() {
-      setTimeout(function(){$("#talkBox").append('<p>楊一 : 你好</p>') 
-      }, 3000);
-      setTimeout(function(){$("#talkBox").append('<p>楊二 : 你好呀</p>') 
-      }, 5000);
-      setTimeout(function(){$("#talkBox").append('<p>楊一 : 我們來討論XXX</p>')
-      }, 7000);
-      setTimeout(function(){$("#talkBox").append('<p>楊二 : 可是你是笨蛋</p>')
-      }, 9000);
-      setTimeout(function(){$("#talkBox").append('<p>楊一 : ......</p>')
-      }, 10000);
-      setTimeout(function(){$("#talkBox").append('<p>楊二 : 不理你 掰</p>')
-      }, 12000);
-    }
-}//End discussion
-function download(){    
+}
+function fakeMessage() {
+    setTimeout(function(){$("#talkBox").append('<p>楊一 : 你好</p>') 
+    }, 3000);
+    setTimeout(function(){$("#talkBox").append('<p>楊二 : 你好呀</p>') 
+    }, 5000);
+    setTimeout(function(){$("#talkBox").append('<p>楊一 : 我們來討論XXX</p>')
+    }, 7000);
+    setTimeout(function(){$("#talkBox").append('<p>楊二 : 可是你是笨蛋</p>')
+    }, 9000);
+    setTimeout(function(){$("#talkBox").append('<p>楊一 : ......</p>')
+    }, 10000);
+    setTimeout(function(){$("#talkBox").append('<p>楊二 : 不理你 掰</p>')
+    }, 12000);
+}
 
-    $("#fileListPanel a").on("click" , downloadPanelClick);
-}
-function downloadPanelClick(){
-    var todo = $(this).attr("name");
-    //alert(todo);
-    switch(todo) {
-        case "browseImage" :
-            resetDownloadPage();
-            browseLocalImageClick();
-            break;
-        case "browsePdf" :
-            resetDownloadPage();
-            browseLocalPdfClick();
-            break;
-        case "evaluation" :
-            resetDownloadPage();
-            //browseLocalImageClick();
-            break;
-        case "teach" :
-            resetDownloadPage();
-            //browseLocalImageClick();
-            break;
-        case "program" :
-            resetDownloadPage();
-            //browseLocalImageClick();
-            break;
-        default :
-            console.log("downloadPanelClick");
-            resetDownloadPage();
+
+var downloadPage = {
+    init : function () {
+          this.addEvent();
+    },
+    addEvent : function () {
+          downloadPanelClick();
     }
-}
-function resetDownloadPage() {
-    $("#showDownloadImage div").remove();
-    $("#showDownloadPdf div").remove();
+
+};
+function downloadPanelClick(){
+    $("#fileListPanel a").on("click" , function (){
+      var todo = $(this).attr("name");
+      //alert(todo);
+      switch(todo) {
+          case "browseImage" :
+              resetDownloadPage();
+              browseLocalImageClick();
+              break;
+          case "browsePdf" :
+              resetDownloadPage();
+              browseLocalPdfClick();
+              break;
+          case "evaluation" :
+              resetDownloadPage();
+              //browseLocalImageClick();
+              break;
+          case "teach" :
+              resetDownloadPage();
+              //browseLocalImageClick();
+              break;
+          case "program" :
+              resetDownloadPage();
+              //browseLocalImageClick();
+              break;
+          default :
+              console.log("downloadPanelClick");
+              resetDownloadPage();
+      }
+    });
 }
 function browseLocalImageClick() {
     //alert("browser");
@@ -654,6 +755,68 @@ function browseLocalImageClick() {
         }
     });
     
+}
+/*************** 點開已下載 image browse *****************/
+function appendImageToView(imageNameArr){
+    $.each(imageNameArr,function(index,value) {
+        var imageFullName = value;
+        var imageNameSplit = value.split(".");
+        var imageName = imageNameSplit[0];
+        var imageHref = "popup"+imageName;
+        //alert(imageHref);
+    
+        $('#showDownloadImage').append('<div class="thumbnailImageCenter" style="display:inline"><a href="#'+imageHref+'" name="thumbnailImage" data-rel="popup"'+
+          'data-position-to="window" data-transition="fade"><img class="popphoto"'+
+          'src="download/image/'+imageFullName+'" style="width:30%;height:100px"></a> </div>');//&nbsp;
+
+    });
+    //dynamic create popup , 縮圖 變大圖
+    dynamicCreatePopupShowImage();
+    
+}
+function dynamicCreatePopupShowImage() {
+    $("a[name='thumbnailImage']").on("click",function() {
+      
+      var target = $(this);
+      var targetSrc = target.children().attr("src");
+      //alert(targetSrc);
+      var imageFullName = targetSrc.split("/")[2];
+      var imageName = imageFullName.split(".")[0];
+      //alert(imageName);
+      //create popup
+      var $popUp = $("<div/>").popup({
+          dismissible: false,
+          theme: "b",
+          transition: "pop"
+      }).on("popupafterclose", function () {
+          //remove the popup when closing
+          $(this).remove();
+      }).css({
+          'width': '100%',
+          'height': '300px',
+          'padding-left': '2px',
+          'padding-top': '2px',
+          'padding-bottom': '2px'
+      });
+      /*right top close button*/
+      $("<a>", {
+          text: "try",
+          "data-rel": "back"
+      }).buttonMarkup({
+          iconpos: "notext",
+          icon: "delete",
+          "data-right" : "true"
+      }).addClass("ui-btn-right").appendTo($popUp);
+      /*image*/
+      $("<img>",{
+          text: "try image"
+      }).addClass("popphoto")
+      .attr("src",targetSrc)
+      .attr("alt",imageName)
+      .appendTo($popUp);
+
+      $popUp.popup('open').trigger("create");
+    });
 }
 function browseLocalPdfClick() {
     //alert("browser");
@@ -814,110 +977,16 @@ function showPdf(pdfFullName){
         queueRenderPage(pageNum);
     });
 }
-/*************** 點開已下載 image browse *****************/
-function appendImageToView(imageNameArr){
-    $.each(imageNameArr,function(index,value) {
-        var imageFullName = value;
-        var imageNameSplit = value.split(".");
-        var imageName = imageNameSplit[0];
-        var imageHref = "popup"+imageName;
-        //alert(imageHref);
-    
-        $('#showDownloadImage').append('<div class="thumbnailImageCenter" style="display:inline"><a href="#'+imageHref+'" name="thumbnailImage" data-rel="popup"'+
-          'data-position-to="window" data-transition="fade"><img class="popphoto"'+
-          'src="download/image/'+imageFullName+'" style="width:30%;height:100px"></a> </div>');//&nbsp;
-
-    });
-    //dynamic create popup , 縮圖 變大圖
-    dynamicCreatePopupShowImage();
-    
-}
-function dynamicCreatePopupShowImage() {
-    $("a[name='thumbnailImage']").on("click",function() {
-      
-      var target = $(this);
-      var targetSrc = target.children().attr("src");
-      //alert(targetSrc);
-      var imageFullName = targetSrc.split("/")[2];
-      var imageName = imageFullName.split(".")[0];
-      //alert(imageName);
-      //create popup
-      var $popUp = $("<div/>").popup({
-          dismissible: false,
-          theme: "b",
-          transition: "pop"
-      }).on("popupafterclose", function () {
-          //remove the popup when closing
-          $(this).remove();
-      }).css({
-          'width': '100%',
-          'height': '300px',
-          'padding-left': '2px',
-          'padding-top': '2px',
-          'padding-bottom': '2px'
-      });
-      /*right top close button*/
-      $("<a>", {
-          text: "try",
-          "data-rel": "back"
-      }).buttonMarkup({
-          iconpos: "notext",
-          icon: "delete",
-          "data-right" : "true"
-      }).addClass("ui-btn-right").appendTo($popUp);
-      /*image*/
-      $("<img>",{
-          text: "try image"
-      }).addClass("popphoto")
-      .attr("src",targetSrc)
-      .attr("alt",imageName)
-      .appendTo($popUp);
-
-      $popUp.popup('open').trigger("create");
-    });
-}
-
-
-/************************** Util *************************/
-/*看有沒有重複的eventObject*/
-function isEventDuplicate(newEventId) {
-
-  var isEventDuplicateBool = false;
-  /* 抓出所有在calendar中的eventObject */
-  var allEventsArr  = $('#calendar').fullCalendar('clientEvents');
-  /* 用id比對有沒有重複的eventObject */
-  $.each( allEventsArr, function( index, value ) {
-  
-      if( value.id == newEventId){
-        isEventDuplicateBool = true;
-        // stop $.each
-        return false; 
-      }
-  });
-  return isEventDuplicateBool;
+function resetDownloadPage() {
+    $("#showDownloadImage div").remove();
+    $("#showDownloadPdf div").remove();
 }
 
 
 
-}//End All ready
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/******************* start ********************/
+app.init(); 
 
 
 

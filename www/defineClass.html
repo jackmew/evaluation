@@ -93,15 +93,35 @@
             },
             removeEvent: function(){
                 $(app).off();
+            },
+            text: function(){
+                textFn();
             }
-        };
-        app.init();
-         alert(app.param1);
-        $(app).trigger("bumpApp");
 
-        app.removeEvent();
+        };
+
+        var bpp = {
+            param1: 3,
+            param2: 4,
+            init :function(){
+                this.param1 = app.param1;
+            }
+        }
         app.init();
-        $(app).trigger("bumpApp");
+        bpp.init();
+        alert(bpp.param1);
+        //alert(app.param1);
+        //$(app).trigger("bumpApp");
+
+        // app.removeEvent();
+        // app.init();
+        //app.text();
+        //$(app).trigger("bumpApp");
+
+
+        function textFn(){
+            alert("you call the function");
+        }
 
          // /******************** constructor function **********************/
          // function o1(name){
