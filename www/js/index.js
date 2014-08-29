@@ -16,7 +16,7 @@ function jqueryMobileReadyEvent(jqmReadyDeferred) {
         console.log("mobile ready!");
         //jquery mobile configuration
         $.extend( $.mobile , {
-            defaultPageTransition: "flip"
+            defaultPageTransition: "slide"
         });
 
         jqmReadyDeferred.resolve();
@@ -87,6 +87,13 @@ function setGlobalVariable() {
   message5 = new Message('5', 'NCffR改善','1248(W4)','2014/08/26' , '08:00',false,false);
   message6 = new Message('6', 'NCRxx改善','1258(W5)','2014/09/25' , '09:00',false,false);
 
+  messageArr.push(message1);
+  messageArr.push(message2);
+  messageArr.push(message3);
+  messageArr.push(message4);
+  messageArr.push(message5);
+  messageArr.push(message6);
+
   /******* Discussion *******/
   isFirstSubmit = false;
 }
@@ -117,8 +124,9 @@ var pageManager = {
     resetPage : function () {
         /* home */
         $('#calendar').hide();
-        $( "#btnJoin" ).removeClass('ui-disabled');
         /* system message */
+        $( "#btnJoin" ).removeClass('ui-disabled');
+        /* discussion */
         $("#talkBox p").remove();
         isFirstSubmit = false;
         /* download */
@@ -235,11 +243,16 @@ var systemMessagePage = {
     },
     destroy :function() {
       $("#tab-systemMessage ul[data-role='listview'] li").remove();
-      messageArr = [];
+      $("a[name='importantOrNot']").off();
+      $("#unread a[name='messageInListview']").off();
+      $("#systemMessage ul[data-role='listview'] a").off();
+      $("#renderCalendar").off();
+      $("#sureJoin").off();
+      //messageArr = [];
     }
 
 };
-
+/* 初始化 system message page */
 function initSystemMessage() {
     //local variable in system message 
     /********************** define Set ******************************/
@@ -258,14 +271,13 @@ function initSystemMessage() {
     var importantSet = new Set("important");
 
     var setArr = [];
-    //alert("init");
-    console.log(message6);
-    messageArr.push(message1);
-    messageArr.push(message2);
-    messageArr.push(message3);
-    messageArr.push(message4);
-    messageArr.push(message5);
-    messageArr.push(message6);
+   
+    // messageArr.push(message1);
+    // messageArr.push(message2);
+    // messageArr.push(message3);
+    // messageArr.push(message4);
+    // messageArr.push(message5);
+    // messageArr.push(message6);
 
     addArr();
     sortArr();
@@ -409,41 +421,33 @@ function initSystemMessage() {
         return 0; // 若 a 等於 b，則返回 0。
     }//End comareMilli
 }//End initSystemMessage
+/* 當按下星星時 將message變成important or not important */
 function bindStartYellowClick() {
-  console.log(message6);
+ 
     $("a[name='importantOrNot']").click(function() {
 
       var mid = $(this).parent().children().children("span").text();
-      //console.log(mid);
-      //alert(mid);
-      // var oneMessageArr = getMessageById(mid);
-      // console.log(oneMessageArr);
-      // var messageArrIndex = oneMessageArr[0];
-      // var message = oneMessageArr[1];
-      console.log(message6);
+      var message = getMessageById(mid);
+      
       var anchorOwnClass = $(this).attr("class");
-      console.log(message6);
+      
       if(anchorOwnClass.indexOf("ui-icon-star") > -1) {
-        console.log(message6);
+       
          $(this).addClass("ui-icon-starYellow").removeClass("ui-icon-star");
 
-         changeMessageImportant(mid,true);
-         //message.important = true;
-         // messageArr[messageArrIndex] = message;
-         // console.log(messageArr);
-         //console.log(message);
+         message.important = true;
 
       }
       if(anchorOwnClass.indexOf("ui-icon-starYellow") > -1) {
          $(this).addClass("ui-icon-star").removeClass("ui-icon-starYellow");
-         changeMessageImportant(mid,false);
-         //message.important = false;
+         message.important = false;
       }
       
     });
 }//EndbindStartYellowClick
+/* 當按下listview去看訊息後 read = true 已讀 */
 function bindMessageInListviewClick() {
-    $("a[name='messageInListview']").click(function() {
+    $("#unread a[name='messageInListview']").click(function() {
       var mid = $(this).children("span").text();
       // get message object
       var message = getMessageById(mid);
@@ -451,44 +455,16 @@ function bindMessageInListviewClick() {
       message.read = true;
     });
 }//End bindMessageInListviewClick
-function changeMessageImportant(mid,TorF) {
-    switch(mid){
-      case "1" : 
-        message1.important = TorF;
-        break;
-      case "2" : 
-        message2.important = TorF;
-        break;
-      case "3" : 
-        message3.important = TorF;
-        break;
-      case "4" : 
-        message4.important = TorF;
-        break;
-      case "5" : 
-        message5.important = TorF;
-        break;
-      case "6" : 
-        console.log(message6);
-        message6.important = TorF;
-        console.log(message6);
-        break;
-    }
-
-}
 function getMessageById(mid){
-    var oneMessageArr = [];
-    //var message ;
+    var message ;
 
     $.each(messageArr,function(index,value){
         if(value.mid === mid){
-          //message = value;
-          oneMessageArr.push(index);
-          oneMessageArr.push(value);
+          message = value;
           return false;
         }
     });
-    return oneMessageArr ;
+    return message ;
 }//End getMessageById
 function systemMessageToCalendar(){
   $("#systemMessage ul[data-role='listview'] a").click(function() {      
@@ -543,6 +519,46 @@ function addInviteCalendarEvent(evaluationName) {
         };
         addInviteCalendarEventToCalendar(eventWrapper);
         break;
+    case "1248(W4)" :
+        eventWrapper = {
+          id: 1248,
+          title: evaluationName, 
+          start: "2014-10-14",
+          end: "2014-10-22",
+          color: "pink"
+        };
+        addInviteCalendarEventToCalendar(eventWrapper);
+        break;
+    case "1258(W5)" :
+        eventWrapper = {
+          id: 1258,
+          title: evaluationName, 
+          start: "2014-10-25",
+          end: "2014-10-30",
+          color: "red"
+        };
+        addInviteCalendarEventToCalendar(eventWrapper);
+        break;
+    case "2498(W3)" :
+        eventWrapper = {
+          id: 2498,
+          title: evaluationName, 
+          start: "2014-11-21",
+          end: "2014-11-27",
+          color: "brown"
+        };
+        addInviteCalendarEventToCalendar(eventWrapper);
+        break;
+    case "3398(W6)" :
+        eventWrapper = {
+          id: 3398,
+          title: evaluationName, 
+          start: "2014-11-05",
+          end: "2014-11-15",
+          color: "purple"
+        };
+        addInviteCalendarEventToCalendar(eventWrapper);
+        break;
     default:     
         console.log("do nothing");
   }//End switch 
@@ -586,6 +602,7 @@ function initInviteCalendar(eventWrapper){
     });
 }//End initInviteCalendar
 function hideOrShowInviteCalendar(){
+  //alert("renderCalendar");
   var isCalendarVisible = $("#inviteCalendar").is(":visible");
    
   if (isCalendarVisible) {
