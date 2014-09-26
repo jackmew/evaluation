@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+        <meta name="msapplication-tap-highlight" content="no" />
+
+        
+        <link rel="stylesheet" type="text/css" href="../css/jquery_mobile-1_4_2_min.css" />
+
+        <script src="../lib/jquery-1_11_1_min.js" type="text/javascript"></script>
+        <!-- moment.js for full calendar  -->
+        <script src='../lib/moment.min.js'></script>
+        <script type="text/javascript" src="../js/example/jqueryEachAndSort.js"></script>
+        <script src="../lib/jquery_mobile-1_4_2_min.js" type="text/javascript"></script>
+
+        <title>jqueryEachAndSort</title>
+    </head>
+    <body>
+
+<!-- ******************************* jqueryEachAndSort *************************************** -->
+        <div data-role="page" id="jqueryEachAndSort" >
+            <!--** header ** -->
+            <div data-role="header" data-position="fixed" >
+                <h1>jqueryEachAndSort</h1>
+            </div>
+            <!--** content ** -->
+            <div data-role="content">
+                <div id="sortPerson">
+                    
+                </div>
+                <div id="sortTime">
+                    <div id="times">
+                        <div class="test-moment">
+                            2013-08-30 15:54
+                        </div>
+                        <div class="test-moment">
+                            2013-08-30 12:54
+                        </div>
+                        <div class="test-moment">
+                            2013-08-29 07:06
+                        </div>
+                        <div class="test-moment">
+                            2013-10-03 04:00
+                        </div>
+                        <div class="test-moment">
+                            2013-08-30 01:54
+                        </div>
+                        <div class="test-moment">
+                            2013-08-17 11:54:2
+                        </div>
+                        <div class="test-moment">
+                            2013-08-17 11:54:1
+                        </div>
+                          
+                    </div>
+                        <br/>
+
+                    Sorted:
+                    <div id="sorted-times">
+                </div>
+            </div><!--** end content ** -->     
+        </div>
+
+
+    </body>
+</html>

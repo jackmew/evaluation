@@ -1,0 +1,77 @@
+<!-- ******************************* Discussion  *************************************** -->
+        <div data-role="page" id="discussion" >
+            <!--** header ** -->
+            <div data-role="header" >
+                <a href="#group" data-icon="bars" data-iconpos="notext" >Menu</a>
+                <h1>討論室</h1>
+                <a href=""data-rel="back" class="ui-btn-right" data-icon="back" data-iconpos="notext">back</a>
+            </div><!-- /header -->
+            <!--** content ** -->
+            <div data-role="content" >
+                <div style="text-align:center;">
+                    <div id="pleaseChoooseDiv">
+                        <p id="pleaseChooseP">請先選擇討論室</p>
+                    </div>
+
+                    <div data-role="collapsibleset"  data-iconpos="right" id="peopleToTalk"></div>
+                    <div id="talkBox" style="text-align:left;"></div>
+                    <div id="typeBox">
+                    </div>
+
+
+                </div>
+            </div><!-- /content -->
+            <!-- ** footer ** -->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+                <div data-role="navbar">
+                  <ul>
+                    <li><a href="#home" data-transition="slide" data-icon="home">工作日誌</a></li>
+                    <li><a href="#systemMessage" data-transition="slide" data-icon="calendar">系統訊息</a></li>
+                    <li><a href="#discussion" data-transition="slide" data-icon="comment">討論室</a></li>
+                    <li><a href="#download" data-transition="slide" data-icon="cloud">下載檔案</a></li>
+                  </ul>
+                </div><!-- /navbar -->
+            </div>    
+
+            <!-- ** panel ** -->
+            <div data-role="panel" id="group" class="modify_listview_panel" data-display="overlay">
+                <!-- search & 個人簡介-->
+                <ul data-role="listview" data-filter="true" data-filter-placeholder="Search">
+                    <li><a href="#">個人簡介</a></li>
+                </ul>
+                <!-- 群組 -->
+                <div data-role="collapsible" data-inset="false" class="animateMe" data-iconpos="right" >
+                    <h3>案件群組(2)</h3>
+                    <ul data-role="listview">
+                      <li><a href="#">2056(W1) <span class="ui-li-count">3</span></a></li>
+                      <li><a href="#">2133(W2) <span class="ui-li-count">5</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- 評審員 -->
+                <div data-role="collapsible" data-inset="false" class="animateMe" data-iconpos="right" >
+                    <h3>評審員(3)</h3>
+                    <ul data-role="listview">
+                      <li><a href="#">評審員一</a></li>
+                      <li><a href="#">評審員二</a></li>
+                      <li><a href="#">評審員三</a></li>
+                    </ul>
+                </div>
+
+                <!-- 評審員 -->
+                <div data-role="collapsible" data-inset="false" class="animateMe" data-iconpos="right" >
+                    <h3>TAF人員(5)</h3>
+                    <ul data-role="listview">
+                      <li><a href="#">TAF人員一</a></li>
+                      <li><a href="#">TAF人員二</a></li>
+                      <li><a href="#">TAF人員三</a></li>
+                      <li><a href="#">TAF人員四</a></li>
+                      <li><a href="#">TAF人員五</a></li>
+                    </ul>
+                </div>
+    
+                    
+                    
+            </div><!-- /panel -->
+        </div>
+<!-- ******************************* End Discussion  *************************************** -->

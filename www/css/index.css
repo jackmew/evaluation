@@ -1,31 +1,77 @@
+/* background color , content*/
+/*.ui-content {
+    background-color: #c8e6fb !important;
+}*/
+/************************ with theme cause wired problem ... *************************/
+/*.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+	background: none;
+}
+
+h3{
+	font-size: 1em;
+}
+*/
 /***************************************** calendar  *********************************************/
-/* Õû‚€ÈÕ•Ñ´óĞ¡ */
+/* calendar control */
+.calendarLeft {
+	width: 60% !important;
+}
+.calendarRight {
+	width: 40% !important;
+}
+#calendarHeader {
+	
+}
+#calendarHeader h3 {
+	font-size: 15px;
+	text-align: right;
+	margin-top: 15px;
+}
+/* calenar size*/
 .fullCalendar-size {
     max-width: 900px;
+
     margin: 0 auto;
 }
-/* ¸Ä×ƒ header ×ÖówîÉ«*/
+/* calendar header text color */
 .ui-widget-header {
-	color:black;
+	border: 1px solid #C7C6C5;
+	background: #8B8B8B ;
+	color: #fff;
 }
-/*È¥µô ×Ö êÓ°*/
+/* cancel the text shadow */
 .ui-overlay-a,.ui-page-theme-a , ui-panel-wrapper{
 	text-shadow:none;
 }
-/*¸Ä×ƒ±³¾°îÉ«*/
+/* calendar background color*/
 div[name='calendar'] .ui-widget-content {
-	background: #E0C586 url("images/ui-bg_highlight-soft_100_eeeeee_1x100.png") 50% top repeat-x;
-	/*background: #ABADB4 url("images/ui-bg_highlight-soft_100_eeeeee_1x100.png") 50% top repeat-x;*/
+	background: #eaeaea;
+	border:#d5d5d5 1px solid; 
 }
-/*Œ¢prev , next KÅÅ*/
+/* calendar today hightlght */
+div[name='calendar'] .ui-widget-content .ui-state-highlight{
+	background: #ffe45c url("images/ui-bg_highlight-soft_75_ffe45c_1x100.png") 50% top repeat-x;
+}
+
+/* parallel the button 
 .fc .fc-button-group > * {
 	float:none;
 	margin-left:0.2px;
 }
-/*Œ¢today ¸úprev,nextKÅÅ*/
+ make prev next button parallel 
 .fc .fc-toolbar > * > * {
 	margin-left:0;
 }
+.fc button {
+	padding: 0;
+	height: 25px;
+	display:block !important;
+
+}
+.fc-center h2 {
+	font-size: 22px;
+}
+*/
 
 
 /***************************************** End calendar  ****************************************/
@@ -52,16 +98,26 @@ div[name='calendar'] .ui-widget-content {
 
 /********************************* talkBox *************************************/
 #talkBox {
-	width:97%;
-	height:400px;
+	width:100%;
+	height:300px;
 	overflow:auto; 
-	background: #dddddd;
+	background: #eee;
 	border: 2px solid #a1a1a1;
 	border-radius: 15px;
-	/*×Œ×Ö²»•ş¿¿Öøß…¿ò*/
+	/*Ã—Å’Ã—Ã–Â²Â»â€¢Ã¾Â¿Â¿Ã–Ã¸ÃŸâ€¦Â¿Ã²*/
 	padding-left:10px;
 	padding-right:10px;
+	/*Ã‰ÃÃÃ‚ Â·Ã–Ã©_Ã’Â»Ã¼c*/
+	margin-top: 10px;
+	margin-bottom: 20px;
+	display: inline-block;
 }
+#talkBox p {
+	/* font-size: 12px;*/
+    line-height: 15px;
+    /*letter-spacing: 3px;*/
+}
+
 /********************************* End talkBox  *************************************/
 
 /********************************* icon star change color to yellow  *************************************/
@@ -75,12 +131,63 @@ background-image:url("data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D
 .thumbnailImageCenter {
 	padding: 1.4% ;
 }
+/********************************* center thumbnailImage  *************************************/
+.thumbnailFileCenter {
+	/*padding: 1.4% ;*/
+	margin:0 auto;
+}
 
 /********************************* End center thumbnailImage  *************************************/
 .toButtom {
 	margin-bottom:  0px;
 	padding-bottom: 0px;
 }
+
+/********************************* system message tab  *************************************/
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+	border-color: transparent;
+	background: transparent;
+}
+.ui-tabs-nav {
+    background: transparent;
+    border-width: 0px;
+}
+#tabs .ui-state-default a { color: #0b93c6; }
+#tabs .ui-state-active a { color: white; }
+/*#tabs .ui-state-hover a, .ui-state-focus a { color: white; }*/
+/********************************* system message calendar  *************************************/
+#inviteCalendar h2 {
+	font-size: 15px;
+}
+/******************* tab exclude jquery ui ******************/
+.ui-widget-content {
+ 	border: none; 
+	background: none;
+}
+/* tab border , hover border color none  */
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+ 	border: none; 
+}
+
+/********************************* discuss *************************************/
+.longdiv{
+  width: 75% !important;
+}
+
+.shortdiv{
+  width: 25% !important;
+}
+#talk-button-submit.ui-btn {
+	padding: 12px;
+	margin-top: 7px;
+}
+
+
+
+
+
+
+
 
 
 

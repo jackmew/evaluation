@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+        <meta name="msapplication-tap-highlight" content="no" />
+
+        
+        <link rel="stylesheet" type="text/css" href="css/jquery_mobile-1_4_2_min.css" />
+
+        <link rel="stylesheet" href="css/jquery-ui.min.css">
+        <link href='css/fullcalendar.css' rel='stylesheet' />
+        <link href='css/fullcalendar.print.css' rel='stylesheet' media='print' />
+        
+        <!--  font awesome -->
+        <link href='css/bootstrap.min.css' rel='stylesheet' />
+        <link href='css/font-awesome-4.2.0/css/font-awesome.min.css' rel='stylesheet' />
+        <!-- jquery mobile progress bar -->
+        <link rel="stylesheet" type="text/css" href="css/jQMProgressBar.css" />
+        <!-- custom jackho theme -->
+        <link rel="stylesheet" type="text/css" href="css/jqmByJackHo.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.icons.min.css" />
+
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <!-- weinre
+        <script src="http://192.168.26.109:8081/target/target-script-min.js#anonymous"></script>
+        -->
+        <!-- jquery -->
+        <script src="lib/jquery-1_11_1_min.js" type="text/javascript"></script>
+
+        <!-- jquery ui for full calendar  -->
+        <script src="lib/jquery-ui.min.js"></script>
+        <!-- moment.js for full calendar  -->
+        <script src='lib/moment.min.js'></script>
+        <!-- full calendar -->
+        <script src='lib/fullcalendar.min.js'></script>
+        <!-- pdf.js for read pdf -->
+        <script src="lib/pdf/pdf.js"></script>
+        <script>PDFJS.workerSrc = 'lib/pdf/worker_loader.js';</script>
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/jqmJackHoTheme.js"></script>
+        <script src="lib/jquery_mobile-1_4_2_min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="lib/jQMProgressBar.js"></script>
+        <title>TAF IM</title>
+
+        <style>
+        .ui-content {
+            background-color: #c8e6fb !important;
+        }
+
+        </style>
+    </head>
+    <body>
+
+
+<!-- ******************************* Home *************************************** -->
+        <div data-role="page" id="home" >
+            <!--** header ** -->
+            <div data-role="header" data-position="fixed" >
+                
+                <h1>工作日誌</h1>
+            </div>
+            <!--** content ** -->
+            <div data-role="content">
+            </br>
+                <!-- <button id="addCalendarEvent" class="ui-shadow ui-btn ui-corner-all">Add</button>
+                <button id="removeCalendarEvent" class="ui-shadow ui-btn ui-corner-all">Remove</button>
+                <button id="getAllCalendarEvents" class="ui-shadow ui-btn ui-corner-all">GetAllEvents</button> 
+                <button id="btnCalendar" class="ui-shadow ui-btn ui-corner-all">行事曆</button>-->
+                <div id="calendar" name="calendar" class="fullCalendar-size" >
+                    
+                </div>
+
+            </div>
+            <!-- ** footer ** -->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+                <div data-role="navbar">
+                  <ul>
+                    <li><a href="#home" data-transition="slide" data-icon="home">工作日誌</a></li>
+                    <li><a href="#contact" data-transition="slide" data-icon="user">聯絡人</a></li>
+                    <li><a href="#systemMessage" data-transition="slide" data-icon="calendar">系統訊息</a></li>
+                    <li><a href="#discussion" data-transition="slide" data-icon="comment">討論室</a></li>
+                    <li><a href="#download" data-transition="slide" data-icon="cloud">下載檔案</a></li>
+                  </ul>
+                </div><!-- /navbar -->
+            </div>
+
+            
+        </div>
+
+<!-- ******************************* Contact *************************************** -->
+        <div data-role="page" id="contact" >
+            <!--** header ** -->
+            <div data-role="header" data-position="fixed" >
+                <h1>聯絡人</h1>
+                <a href=""data-rel="back" class="ui-btn-right" data-icon="back" data-iconpos="notext">back</a>
+            </div>
+            <!--** content ** -->
+            <div data-role="content">
+                <ul data-role="listview" data-autodividers="true" data-filter="true" data-inset="true">
+                    <li><a href="#contactDetail">Adam Kinkaid</a></li>
+                    <li><a href="#contactDetail">Alex Wickerham</a></li>
+                    <li><a href="#contactDetail">Avery Johnson</a></li>
+                    <li><a href="#contactDetail">Bob Cabot</a></li>
+                    <li><a href="#contactDetail">Caleb Booth</a></li>
+                    <li><a href="#contactDetail">Christopher Adams</a></li>
+                    <li><a href="#contactDetail">Culver James</a></li>
+                </ul>
+            </div>
+            <!-- ** footer ** -->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+                <div data-role="navbar">
+                  <ul>
+                    <li><a href="#home" data-transition="slide" data-icon="home">工作日誌</a></li>
+                    <li><a href="#contact" data-transition="slide" data-icon="user">聯絡人</a></li>
+                    <li><a href="#systemMessage" data-transition="slide" data-icon="calendar">系統訊息</a></li>
+                    <li><a href="#discussion" data-transition="slide" data-icon="comment">討論室</a></li>
+                    <li><a href="#download" data-transition="slide" data-icon="cloud">下載檔案</a></li>
+                  </ul>
+                </div><!-- /navbar -->
+            </div>
+        </div>
+    <!-- ******************************* Contact - detail *************************************** -->
+        <div data-role="page" id="contactDetail" >
+            <!--** header ** -->
+            <div data-role="header" data-position="fixed" >
+                <h1> Contact </h1>
+                <a href=""data-rel="back" class="ui-btn-right" data-icon="back" data-iconpos="notext">back</a>
+            </div>
+            <!--** content ** -->
+            <div data-role="content">
+                <h2>Adam Kinkaid</h2>
+                <div class="ui-field-contain">
+                    <label for="homePhone">電話</label>
+                    <input type="text" name="homePhone" id="homePhone" value="02-87735773">
+                </div>
+                <div class="ui-field-contain">
+                    <label for="phone">行動電話</label>
+                    <input type="text" name="phone" id="phone" value="0920120333">
+                </div>
+                <div class="ui-field-contain">
+                    <label for="email">電子信箱</label>
+                    <input type="text" name="email" id="email" value="ellen@leandev.com.tw">
+                </div>
+            </div>
+            <!-- ** footer ** -->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+                <div data-role="navbar">
+                  <ul>
+                    <li><a href="#home" data-transition="slide" data-icon="home">工作日誌</a></li>
+                    <li><a href="#contact" data-transition="slide" data-icon="user">聯絡人</a></li>
+                    <li><a href="#systemMessage" data-transition="slide" data-icon="calendar">系統訊息</a></li>
+                    <li><a href="#discussion" data-transition="slide" data-icon="comment">討論室</a></li>
+                    <li><a href="#download" data-transition="slide" data-icon="cloud">下載檔案</a></li>
+                  </ul>
+                </div><!-- /navbar -->
+            </div>
+        </div>
+    <!-- ******************************* End Contact - detail *************************************** -->
+<!-- ******************************* End Contact *************************************** -->
+<!-- ******************************* System Message *************************************** -->
+        <div data-role="page" id="systemMessage" >
+            <!--** header ** -->
+            <div data-role="header" data-position="fixed" >
+                <h1>系統訊息</h1>
+                <a href="" data-rel="back" class="ui-btn-right" data-icon="back" data-iconpos="notext">back</a>
+            </div>
+            <!--** content ** -->
+            <div data-role="content">
+                <!--
+                <div id="old">
+                    <ul data-role="listview" data-inset="true">
+                        <li>
+                            <a href="#invite">
+                            <h2>評鑑邀請</h2>
+                            <p><strong>1125(W1)</strong> 評鑑邀請</p>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#ncr">
+                            <h2>NCR 改善</h2>
+                            <p><strong>2498(W1)</strong> 回覆不符合事項改善</p>
+                            </a>
+                        </li>
+                    </ul>
+
+k                        <li>
+                            <a href="#invite">
+                            <h2>評鑑邀請</h2>
+                            <p><strong>1130(W2)</strong> 評鑑邀請</p>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#ncr">
+                            <h2>NCR 改善</h2>
+                            <p><strong>2460(W2)</strong> 回覆不符合事項改善</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            -->
+                <div id="tab-systemMessage">
+                    <div data-role="tabs" id="tabs">
+                      <div id="tabX" data-role="navbar">
+                        <ul>
+                          <li><a href="#unread" data-ajax="false" class="ui-btn-icon-top ui-icon-mail">未讀</a></li>
+                          <li><a href="#read" data-ajax="false" class="ui-btn-icon-top ui-icon-info">已讀</a></li>
+                          <li><a href="#important" data-ajax="false" class="ui-btn-icon-top ui-icon-starYellow">重要</a></li>
+                        </ul>
+                      </div>
+                      <div id="unread">
+                        
+                        <ul data-role="listview" data-split-icon="star" data-inset="true">
+                     
+                        </ul>
+                        
+                      </div>
+                      <div id="read">
+                        <ul data-role="listview" data-split-icon="star" data-inset="true">
+                            
+                        </ul>
+                      </div>
+                      <div id="important">
+                        <ul data-role="listview" data-split-icon="starYellow" data-inset="true">
+                         
+                        </ul>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ** footer ** -->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+                <div data-role="navbar">
+                  <ul>
+                    <li><a href="#home" data-transition="slide" data-icon="home">工作日誌</a></li>
+                    <li><a href="#contact" data-transition="slide" data-icon="user">聯絡人</a></li>
+                    <li><a href="#systemMessage" data-transition="slide" data-icon="calendar">系統訊息</a></li>
+                    <li><a href="#discussion" data-transition="slide" data-icon="comment">討論室</a></li>
+                    <li><a href="#download" data-transition="slide" data-icon="cloud">下載檔案</a></li>
+                  </ul>
+                </div><!-- /navbar -->
+            </div>
+        </div>
+    <!-- ******************************* System Message - invite ************************* -->
+        <div data-role="page" id="invite" >
+            <!--** header ** -->
+            <div data-role="header" data-position="fixed" >
+                <h1>系統訊息內容</h1>
+                <a href=""data-rel="back" class="ui-btn-right" data-icon="back" data-iconpos="notext">back</a>
+            </div>
+            <!--** content ** -->
+            <div data-role="content">
+                <div id="inviteMessage">
+               
+                </div>
+                
+                
+            </div>
+            <!-- ** footer ** -->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+                <div data-role="navbar">
+                  <ul>
+                    <li><a href="#home" data-transition="slide" data-icon="home">工作日誌</a></li>
+                    <li><a href="#contact" data-transition="slide" data-icon="user">聯絡人</a></li>
+                    <li><a href="#systemMessage" data-transition="slide" data-icon="calendar">系統訊息</a></li>
+                    <li><a href="#discussion" data-transition="slide" data-icon="comment">討論室</a></li>
+                    <li><a href="#download" data-transition="slide" data-icon="cloud">下載檔案</a></li>
+                  </ul>
+                </div><!-- /navbar -->
+            </div>
+
+            <!-- ******************************* System Message - isJoinDialog ************************* -->
+            <div data-role="popup" id="isJoinDialog" data-overlay-theme="b" data-dismissible="false" style="max-width:400px;">
+                <div data-role="header" data-theme="a">
+                    <h1>確定參加?</h1>
+                </div>
+                <div role="main" class="ui-content">
+                    <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">取消</a>
+                    <a id="sureJoin" href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">確定</a>
+                </div>
+            </div>
+            <!-- ******************************* End System Message - invite ************************* -->
+            <!-- ******************************* System Message - basic popup 已加入行事曆 ************************* -->
+            <div data-role="popup" id="popupBasic-joined">
+                <p>已加入您的行事曆</p>
+            </div>
+            <!-- ******************************* End System Message - basic popup 已加入行事曆 ************************* -->
+        </div>
+    <!-- ******************************* End System Message - invite ************************* -->
+        
+    <!-- ******************************* System Message - NCR ************************* -->
+        <div data-role="page" id="ncr" >
+            <!--** header ** -->
+            <div data-role="header" data-position="fixed" >
+                <h1> NCR 改善 </h1>
+                <a href=""data-rel="back" class="ui-btn-right" data-icon="back" data-iconpos="notext">back</a>
+            </div>
+            <!--** content ** -->
+            <div data-role="content">
+                <p>2498(W1)申請者已回覆不符合事項的改善內容,請確認改善措施.</p>
+            </div>
+            <!-- ** footer ** -->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+                <div data-role="navbar">
+                  <ul>
+                    <li><a href="#home" data-transition="slide" data-icon="home">工作日誌</a></li>
+                    <li><a href="#contact" data-transition="slide" data-icon="user">聯絡人</a></li>
+                    <li><a href="#systemMessage" data-transition="slide" data-icon="calendar">系統訊息</a></li>
+                    <li><a href="#discussion" data-transition="slide" data-icon="comment">討論室</a></li>
+                    <li><a href="#download" data-transition="slide" data-icon="cloud">下載檔案</a></li>
+                  </ul>
+                </div><!-- /navbar -->
+            </div>
+        </div>
+    <!-- ******************************* End System Message - NCR ************************* -->
+<!-- ******************************* End System Message *************************************** -->
+
+
+    </body>
+</html>

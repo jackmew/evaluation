@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+        <meta name="msapplication-tap-highlight" content="no" />
+
+        
+        <link rel="stylesheet" type="text/css" href="../css/jquery_mobile-1_4_2_min.css" />
+
+        <link rel="stylesheet" href="../css/jquery-ui.min.css">
+        <link href='../css/fullcalendar.css' rel='stylesheet' />
+        <link href='../css/fullcalendar.print.css' rel='stylesheet' media='print' />
+        
+        <script src="../lib/jquery-1_11_1_min.js" type="text/javascript"></script>
+
+        <!-- jquery ui for full calendar  -->
+        <script src="../lib/jquery-ui.min.js"></script>
+        <!-- moment.js for full calendar  -->
+        <script src='../lib/moment.min.js'></script>
+        <!-- full calendar -->
+        <script src='../lib/fullcalendar.min.js'></script>
+
+        <script type="text/javascript" src="../js/example/dateAndCalendar.js"></script>
+        <script src="../lib/jquery_mobile-1_4_2_min.js" type="text/javascript"></script>
+        <title>Date and Calendar</title>
+        <style type="text/css" >
+            .ui-datepicker{
+                margin:0 auto; 
+                /* 
+                   top and bottom margins are 0px ,
+                   right and left margins are auto    
+                */
+            }
+            .fc-basic-view tbody .fc-row {
+                min-height: 8em;
+            }
+        </style>
+    </head>
+    <body>
+
+<!-- ******************************* dateAndCalendar *************************************** -->
+        <div data-role="page" id="dateAndCalendar" >
+            <!--** header ** -->
+            <div data-role="header" data-position="fixed" >
+                <h1>Date and Calendar</h1>
+                <a href=""data-rel="back" class="ui-btn-right" data-icon="back" data-iconpos="notext">back</a>
+            </div>
+            <!--** content ** -->
+            <div data-role="content">
+                <div style="background-color: lightblue">
+                    <p>Date: <input type="text" id="datepicker" data-calendar="true"></p>
+                </div>
+                <div style="text-align: center; font-size:2em">
+                    <a href="http://fullcalendar.io/">fullcalendar</a>
+                </div>
+                <div style="background-color: lightgreen">
+                    
+
+                    <div id="calendar" name="calendar" class="fullCalendar-size">
+                        
+                    </div>
+
+                    <button id="addCalendarEvent" class="ui-shadow ui-btn ui-corner-all">Add</button>
+                    <button id="removeCalendarEvent" class="ui-shadow ui-btn ui-corner-all">Remove</button>
+                </div>
+            </div>
+        </div>
+<!-- ******************************* end dateAndCalendar ************************************ -->
+
+
+
+    </body>
+</html>

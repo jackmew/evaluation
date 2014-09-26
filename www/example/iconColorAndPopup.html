@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+        <meta name="msapplication-tap-highlight" content="no" />
+
+        <link rel="stylesheet" type="text/css" href="../css/jquery_mobile-1_4_2_min.css" />
+
+        <script src="../lib/jquery-1_11_1_min.js" type="text/javascript"></script>
+        <!-- moment.js for full calendar  -->
+        <script src='../lib/moment.min.js'></script>
+        <script type="text/javascript" src="../js/example/iconColorAndPopup.js"></script>
+        <script src="../lib/jquery_mobile-1_4_2_min.js" type="text/javascript"></script>
+
+        <title>iconColorAndPopup</title>
+
+        <style type="text/css">
+            .ui-icon-delete:after{
+background-image:url("data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22iso-8859-1%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20%20width%3D%2214px%22%20height%3D%2214px%22%20viewBox%3D%220%200%2014%2014%22%20style%3D%22enable-background%3Anew%200%200%2014%2014%3B%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpolygon%20fill%3D%22%23FFF10a%22%20points%3D%2214%2C3%2011%2C0%207%2C4%203%2C0%200%2C3%204%2C7%200%2C11%203%2C14%207%2C10%2011%2C14%2014%2C11%2010%2C7%20%22%2F%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3C%2Fsvg%3E")
+}
+.ui-icon-starYellow:after{
+background-image:url("data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22iso-8859-1%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20%20width%3D%2214px%22%20height%3D%2214px%22%20viewBox%3D%220%200%2014%2014%22%20style%3D%22enable-background%3Anew%200%200%2014%2014%3B%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpolygon%20fill%3D%22%23fff10a%22%20points%3D%2214%2C5%209%2C5%207%2C0%205%2C5%200%2C5%204%2C8%202.625%2C13%207%2C10%2011.375%2C13%2010%2C8%20%22%2F%3E%3C%2Fsvg%3E")
+}
+.thumbnailImageCenter {
+    padding: 1.4% ;
+}
+        </style>
+    </head>
+    <body>
+
+<!-- ******************************* iconColorAndPopup *************************************** -->
+        <div data-role="page" id="iconColorAndPopup" >
+            <!--** header ** -->
+            <div data-role="header" data-position="fixed" >
+                <h1>Icon Color And Popup</h1>
+                <a href=""data-rel="back" class="ui-btn-right" data-icon="delete" data-iconpos="notext">back</a>
+            </div>
+            <!--** content ** -->
+            <div data-role="content">
+                <div style="text-align: center;">
+                    <a href="http://www.bar54.de/2014/02/jquery-mobile-change-color-of-svg-icons/">reference</a>
+                </div>
+                <a id="showImage" href="#" class="ui-btn ui-icon-starYellow ui-corner-all ui-btn-icon-bottom">Bottom</a>
+                <div id="showDownloadImage"></div>
+                <p>這裡就解釋了 為什麼sencha的widget全部都定義到js 裡面去寫 , 因為widget只要改變名稱 就可以new很多個
+                    若是寫在html裡面 ,code就會變得很長 很難debug.</p>
+            </div>
+            
+
+<!-- ******************************* end iconColorAndPopup *************************************** -->
+            
+        </div>
+
+
+    </body>
+</html>

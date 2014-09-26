@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+        <meta name="msapplication-tap-highlight" content="no" />
+
+        
+        <link rel="stylesheet" type="text/css" href="../css/jquery_mobile-1_4_2_min.css" />>
+        <script src="../lib/jquery-1_11_1_min.js" type="text/javascript"></script>
+        <script src="../lib/jquery_mobile-1_4_2_min.js" type="text/javascript"></script>
+        <title>Logo</title>
+    </head>
+    <body>
+
+<!-- ******************************* Entry *************************************** -->
+        <div data-role="page" id="badge" >
+            <!--** header ** -->
+            <div data-role="header" data-position="fixed" >
+                <h1>Logo</h1>
+            </div>
+            <!--** content ** -->
+            <div data-role="content">
+                <div>
+                    <a href="http://www.cnblogs.com/cmduan/archive/2012/03/09/2388345.html">andriod 度量單位</a>
+                    <p>四種屏幕尺寸分類:1.small 2.normal 3.large 4. xlarge</p>
+                    <p>四種密度分類:1. ldpi(low) 2. mdpi(medium) 3. hdpi(high) 4.xhdpi(extra high)</p>
+                </div>
+                <div>
+                    <p style="color:red">問題是各平台計算的方式又不同?????</p>   
+                </div>
+                <div>
+                    <a href="https://www.npmjs.org/package/cordova-gen-icon">cordova-gen-icon</a>
+                    <p>cordova create logo org.jackho.logo Logo</p>
+                    <p>將需要的圖片 取代原本www/img/logo.png</p>
+                    <p>暫時將config.xml複製到www/底下</p>
+                    <p>cordova platform add android</p>
+                    <p>cordova-gen-icon</p>
+                    <p>cordova build (android)</p>
+                    <p>cordova emulate android (in andriod emulator)</p>
+                </div>
+            </div> 
+        </div>
+
+    </body>
+</html>

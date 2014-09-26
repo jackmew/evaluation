@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+        <meta name="msapplication-tap-highlight" content="no" />
+
+        
+        <link rel="stylesheet" type="text/css" href="../css/jquery_mobile-1_4_2_min.css" />
+        <link rel="stylesheet" type="text/css" href="../css/example/pageWithListview.css" />
+
+        <script src="../lib/jquery-1_11_1_min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="../js/example/pageWithListview.js"></script>
+        <script src="../lib/jquery_mobile-1_4_2_min.js" type="text/javascript"></script>
+
+        <title>Page With ListView</title>
+    </head>
+    <body>
+        <!-- ******************************* Discussion  *************************************** -->
+        <div data-role="page" id="pageWithListview" >
+            <!--** header ** -->
+            <div data-role="header" >
+                <a href="#pageWithListview_group" data-icon="bars" data-iconpos="notext" >Menu</a>
+                <h1>Page With ListView</h1>
+                <a href=""data-rel="back" class="ui-btn-right" data-icon="back" data-iconpos="notext">back</a>
+            </div><!-- /header -->
+            <!--** content ** -->
+            <div data-role="content" >
+                <div style="text-align: center;">
+                    <p>1. center</p>
+                    <a href="http://demos.jquerymobile.com/1.3.0/docs/examples/panels/panel-styling.html">2. page with listview</a>
+                    <p>3. animated collapsible</p> 
+                    <div style="display:inline-block;width:100px;height:100px;background-color:red;">
+                        
+                    </div>
+                    
+                </div>
+            </div><!-- /content -->
+    
+            <!-- ** panel ** -->
+            <div data-role="panel" id="pageWithListview_group" class="modify_listview_panel" data-display="overlay">
+                <!-- search & 個人簡介-->
+                <ul data-role="listview" data-filter="true" data-filter-placeholder="Search">
+                    <li><a href="#">個人簡介</a></li>
+                </ul>
+                <!-- 群組 -->
+                <div data-role="collapsible" data-inset="false" class="animateMe" data-iconpos="right" >
+                    <h3>案件群組(2)</h3>
+                    <ul data-role="listview">
+                      <li><a href="#">2056(W1) <span class="ui-li-count">3</span></a></li>
+                      <li><a href="#">2133(W2) <span class="ui-li-count">5</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- 評審員 -->
+                <div data-role="collapsible" data-inset="false" class="animateMe" data-iconpos="right" >
+                    <h3>評審員(3)</h3>
+                    <ul data-role="listview">
+                      <li><a href="#">評審員一</a></li>
+                      <li><a href="#">評審員二</a></li>
+                      <li><a href="#">評審員三</a></li>
+                    </ul>
+                </div>
+
+                <!-- 評審員 -->
+                <div data-role="collapsible" data-inset="false" class="animateMe" data-iconpos="right" >
+                    <h3>TAF人員(5)</h3>
+                    <ul data-role="listview">
+                      <li><a href="#">TAF人員一</a></li>
+                      <li><a href="#">TAF人員二</a></li>
+                      <li><a href="#">TAF人員三</a></li>
+                      <li><a href="#">TAF人員四</a></li>
+                      <li><a href="#">TAF人員五</a></li>
+                    </ul>
+                </div>
+    
+                    
+                    
+            </div><!-- /panel -->
+        </div>
+<!-- ******************************* End Discussion  *************************************** -->
+    </body>
+</html>
